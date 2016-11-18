@@ -1,0 +1,9 @@
+bin/
+build/
+gen/
+others/
+local.properties
+*.iml
+.idea/
+.gradle/
+wrakey.keystore

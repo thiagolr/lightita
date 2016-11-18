@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile 'com.pes.materialcolorpicker:library:1.0.2'
+
+    compile 'com.google.firebase:firebase-core:9.8.0'
+
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:gridlayout-v7:22.2.1'
+    compile 'com.android.support:recyclerview-v7:22.2.1'
+}
+
+android {
+
+    compileSdkVersion 22
+    buildToolsVersion "24.0.3"
+
+    def versionNumber = System.getenv("VERSION_CODE") ?: "1"
+    def versionLabel = System.getenv("VERSION_NAME") ?: "LT-01.00.00"
+
+    defaultConfig {
+        applicationId "com.thiagorosa.lightita"
+        versionName versionLabel
+        versionCode versionNumber.toInteger()
+    }
+
+    productFlavors {
+        Dev {
+            minSdkVersion 21
+            targetSdkVersion 22
+        }
+        NonGooglePlay {
+            minSdkVersion 14
+            targetSdkVersion 22
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("KEYSTORE"))
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+
+            def apk = output.outputFile;
+            def newName;
+
+            if (variant.buildType.name == "release") {
+                newName = variant.versionName + ".apk";
+            } else {
+                newName = apk.name.replace(".apk", "-signed.apk");
+            }
+
+            output.outputFile = new File(apk.parentFile, newName);
+        }
+
+        if (variant.buildType.name == 'release') {
+            variant.productFlavors.each { flavor ->
+                def taskSuffix = variant.name.capitalize()
+                def destination = System.getenv("APK_STORAGE")
+
+                def assembleTaskName = "assemble${taskSuffix}"
+                if (tasks.findByName(assembleTaskName)) {
+                    def copyAPKTask = tasks.create(name: "archive${taskSuffix}", type: org.gradle.api.tasks.Copy) {
+                        description "Archive APK and proguard mapping file"
+                        from("${buildDir}") {
+                            include "**/mapping/${flavor.name}/${variant.buildType.name}/mapping.txt"
+                            include "**/apk/${variant.versionName}.apk"
+                            exclude "**/*unaligned*"
+                        }
+                        into destination
+                        eachFile { file ->
+                            if (file.name == 'mapping.txt') {
+                                file.path = "${variant.versionName}.txt"
+                            } else {
+                                file.path = "${variant.versionName}.apk"
+                            }
+                        }
+                        includeEmptyDirs = false
+                    }
+                    tasks[assembleTaskName].finalizedBy = [copyAPKTask]
+                }
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
