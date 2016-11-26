@@ -42,7 +42,7 @@ import static com.thiagorosa.lightita.model.EffectLogic.TYPE_WIPE;
 
 public class ViewLed extends View {
 
-    private static final int NUM_ROWS = 3;
+    private static final int NUM_ROWS = 2;
     private static final int NUM_COLUMNS = 1;
     private static final int NUM_LEDS = 24;
 

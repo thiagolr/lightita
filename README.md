@@ -1,13 +1,10 @@
 LighTita
 ========
 
-### Homemade Christmas Lights
+The project is setup with two sets of three led strip rows. The sets can be controlled independently or simultaneously via Bluetooth using an Android application.
 
-The project is setup with two sets of three led strip rows. The sets can be controlled independently or simultaneously via Bluetooth.
+### Features
 
-### Software
-
-FEATURES:
 - strip selection
 - lots of effects
 - effect parameters
@@ -17,7 +14,7 @@ FEATURES:
 - clear
 - undo
 
-EFFECTS:
+### Effects
 - wipe (single color, random color)
 - theater (single color, random color)
 - rainbow (linear, cyclic)
@@ -31,4 +28,4 @@ EFFECTS:
 
 ### Screenshots
 
-<img src="/media/screenshot1.png?raw=true" width="210">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/screenshot2.png?raw=true" width="210">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/screenshot3.png?raw=true" width="210">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/screenshot4.png?raw=true" width="210">
+<img src="/media/screenshot1.png?raw=true" width="200">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/screenshot2.png?raw=true" width="200">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/screenshot3.png?raw=true" width="200">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/media/screenshot4.png?raw=true" width="200">

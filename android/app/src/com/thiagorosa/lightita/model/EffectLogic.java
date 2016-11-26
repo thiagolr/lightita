@@ -167,7 +167,7 @@ public class EffectLogic {
     public void staticRandom(int startIndex, int endIndex, int wait, int repeat) {
         for (int j = 0; j < repeat; j++) {
             for (int i = startIndex; i < endIndex; i++) {
-                setPixel(i, random(256), random(256), random(256));
+                setPixel(i, colorRandom());
             }
             showStrip();
             delay(wait);
@@ -194,7 +194,7 @@ public class EffectLogic {
         for (int j = 0; j < repeat; j++) {
             setAll(Color.BLACK, startIndex, endIndex);
             for (int i = 0; i < count; i++) {
-                setPixel(startIndex + random(endIndex - startIndex), random(256), random(256), random(256));
+                setPixel(startIndex + random(endIndex - startIndex), colorRandom());
                 showStrip();
                 delay(wait);
                 if (single == 1) {
@@ -246,7 +246,7 @@ public class EffectLogic {
     // strobe effect with random color and constant delay
     public void strobeRandomConstant(int startIndex, int endIndex, int wait, int repeat) {
         for (int j = 0; j < repeat; j++) {
-            setAll(Color.rgb(random(256), random(256), random(256)), startIndex, endIndex);
+            setAll(colorRandom(), startIndex, endIndex);
             showStrip();
             delay(wait);
             setAll(Color.BLACK, startIndex, endIndex);
@@ -272,7 +272,7 @@ public class EffectLogic {
     // strobe effect with random color and random delay
     public void strobeRandomCrazy(int startIndex, int endIndex, int wait, int repeat) {
         for (int j = 0; j < repeat; j++) {
-            setAll(Color.rgb(random(256), random(256), random(256)), startIndex, endIndex);
+            setAll(colorRandom(), startIndex, endIndex);
             showStrip();
             delay(10 + random(wait));
             setAll(Color.BLACK, startIndex, endIndex);
@@ -401,6 +401,24 @@ public class EffectLogic {
         for (int i = startIndex; i < endIndex; i++) {
             setPixel(i, color);
         }
+    }
+
+    private int colorRandom() {
+        switch (random(6)) {
+            case 0:
+                return 0xFFFF0000;
+            case 1:
+                return 0xFF00FF00;
+            case 2:
+                return 0xFF0000FF;
+            case 3:
+                return 0xFFFFFF00;
+            case 4:
+                return 0xFFFF00FF;
+            case 5:
+                return 0xFF00FFFF;
+        }
+        return 0xFFFFFFFF;
     }
 
     private int colorWheel(int pos) {

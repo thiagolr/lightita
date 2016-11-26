@@ -119,7 +119,11 @@ public class Effect {
     }
 
     public static void brightness(int value) {
-        BluetoothManager.getInstance().write(TYPE_BRIGHTNESS, value, 0, 0, 0, 0);
+        double a = 9.7758463166360387E-01;
+        double b = 5.5498961535023345E-02;
+        double result = Math.floor((a * Math.exp(b * value) + .5)) - 1;
+
+        BluetoothManager.getInstance().write(TYPE_BRIGHTNESS, (int) result, 0, 0, 0, 0);
     }
 
     public static void undo() {

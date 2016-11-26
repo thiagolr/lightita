@@ -604,7 +604,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="WL\n3" />
+                    android:text="WL\n3"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/wipe_a3r"
@@ -612,7 +613,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="WR\n3" />
+                    android:text="WR\n3"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/wipe_al"
@@ -707,7 +709,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TL\n3" />
+                    android:text="TL\n3"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/theater_a3r"
@@ -715,7 +718,24 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TR\n3" />
+                    android:text="TR\n3"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/theater_rainbowl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TL\nRB" />
+
+                <Button
+                    android:id="@+id/theater_rainbowr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TR\nRB" />
 
                 <Button
                     android:id="@+id/theater_al"
@@ -739,23 +759,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <Button
-                    android:id="@+id/theater_rainbowl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="TL\nRB" />
-
-                <Button
-                    android:id="@+id/theater_rainbowr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="TR\nRB" />
 
             </LinearLayout>
 
@@ -857,8 +863,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:max="255"
-                    android:progress="20" />
+                    android:max="100"
+                    android:progress="67" />
 
             </LinearLayout>
 

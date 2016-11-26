@@ -20,10 +20,12 @@
 #define LED_A
 //#define LED_B
 
+//#define PRINT
+
 // LED STRIP A
 #ifdef LED_A
-#define NUM_LEDS 162
-#endif
+#define NUM_LEDS 108
+
 #define LED_STRIP_A1_START 0
 #define LED_STRIP_A1_SIZE 54
 #define LED_STRIP_A1_DIRECTION -1
@@ -33,11 +35,12 @@
 #define LED_STRIP_A3_START 108
 #define LED_STRIP_A3_SIZE 54
 #define LED_STRIP_A3_DIRECTION -1
+#endif
 
 // LED STRIP B
 #ifdef LED_B
-#define NUM_LEDS 123
-#endif
+#define NUM_LEDS 82
+
 #define LED_STRIP_B1_START 0
 #define LED_STRIP_B1_SIZE 41
 #define LED_STRIP_B1_DIRECTION 1
@@ -47,9 +50,10 @@
 #define LED_STRIP_B3_START 82
 #define LED_STRIP_B3_SIZE 41
 #define LED_STRIP_B3_DIRECTION 1
+#endif
 
 // BRIGHTNESS
-#define BRIGHTNESS 20
+#define BRIGHTNESS 39
 
 // COMMANDS
 #define MAX_COMMANDS 100
@@ -104,8 +108,11 @@ int debug = 0;
 // #########################################################################################################
 
 void setup() {
+
+#ifdef PRINT
   // setup the serial module
   Serial.begin(9600);
+#endif
 
   // setup the bluetooth serial module
   Bluetooth.begin(9600);
@@ -131,6 +138,16 @@ void setup() {
     param5[i] = 0;
   }
   count = 0;
+
+  // add initial effect
+  command[count] = COMMAND_RAINBOW;
+  param1[count] = 4;
+  param2[count] = 2;
+  param3[count] = 0;
+  param4[count] = 0;
+  param5[count] = 1;
+  count++;
+
 }
 
 void process() {
@@ -144,6 +161,7 @@ void process() {
     byte read4 = Bluetooth.read();
     byte read5 = Bluetooth.read();
 
+#ifdef PRINT
     switch (type) {
     case COMMAND_CLEAR:
       Serial.println("COMMAND_CLEAR");
@@ -197,6 +215,7 @@ void process() {
     Serial.println(read3);
     Serial.println(read4);
     Serial.println(read5);
+#endif
 
     switch (type) {
     case COMMAND_CLEAR:
@@ -250,7 +269,11 @@ void loop() {
 
   // if no command available, turn off all the leds
   if (count == 0) {
+#ifdef PRINT
     Serial.println("no effects");
+#endif
+
+    // turn off all pixels
     staticColor(0, 0, NUM_LEDS, 2000, 1);
 
     //wipeColor(0xFF0000, 0, 54, getDirection(1, 0, 1), 100);

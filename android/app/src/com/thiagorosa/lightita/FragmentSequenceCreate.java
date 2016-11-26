@@ -784,7 +784,7 @@ public class FragmentSequenceCreate extends CustomFragment {
         mBrightnessValue.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mBrightnessText.setText((progress * 100) / 255 + getText(R.string.create_percentage).toString());
+                mBrightnessText.setText(progress + getText(R.string.create_percentage).toString());
                 mBrightness = progress;
             }
 
@@ -800,7 +800,7 @@ public class FragmentSequenceCreate extends CustomFragment {
 
         mBrightnessText = (TextView) view.findViewById(R.id.brightness_text);
         mBrightness = mBrightnessValue.getProgress();
-        mBrightnessText.setText((mBrightness * 100) / 255 + getText(R.string.create_percentage).toString());
+        mBrightnessText.setText(mBrightness + getText(R.string.create_percentage).toString());
 
         setHasOptionsMenu(true);
 
